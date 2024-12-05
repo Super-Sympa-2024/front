@@ -13,9 +13,9 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LayoutImport } from './routes/_layout'
-import { Route as AboutImport } from './routes/about'
 import { Route as TestImport } from './routes/test'
+import { Route as AboutImport } from './routes/about'
+import { Route as LayoutImport } from './routes/_layout'
 
 // Create Virtual Routes
 
@@ -23,7 +23,7 @@ const IndexLazyImport = createFileRoute('/')()
 const LayoutDemoIndexLazyImport = createFileRoute('/_layout/demo/')()
 const LayoutDemoIdLazyImport = createFileRoute('/_layout/demo/$id')()
 const LayoutDemoDemo2IndexLazyImport = createFileRoute(
-  '/_layout/demo/demo_2/'
+  '/_layout/demo/demo_2/',
 )()
 
 // Create/Update Routes
@@ -31,48 +31,48 @@ const LayoutDemoDemo2IndexLazyImport = createFileRoute(
 const TestRoute = TestImport.update({
   id: '/test',
   path: '/test',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any)
 
 const AboutRoute = AboutImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any)
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
 const LayoutDemoIndexLazyRoute = LayoutDemoIndexLazyImport.update({
   id: '/demo/',
   path: '/demo/',
-  getParentRoute: () => LayoutRoute
+  getParentRoute: () => LayoutRoute,
 } as any).lazy(() =>
-  import('./routes/_layout/demo/index.lazy').then((d) => d.Route)
+  import('./routes/_layout/demo/index.lazy').then((d) => d.Route),
 )
 
 const LayoutDemoIdLazyRoute = LayoutDemoIdLazyImport.update({
   id: '/demo/$id',
   path: '/demo/$id',
-  getParentRoute: () => LayoutRoute
+  getParentRoute: () => LayoutRoute,
 } as any).lazy(() =>
-  import('./routes/_layout/demo/$id.lazy').then((d) => d.Route)
+  import('./routes/_layout/demo/$id.lazy').then((d) => d.Route),
 )
 
 const LayoutDemoDemo2IndexLazyRoute = LayoutDemoDemo2IndexLazyImport.update({
   id: '/demo/demo_2/',
   path: '/demo/demo_2/',
-  getParentRoute: () => LayoutRoute
+  getParentRoute: () => LayoutRoute,
 } as any).lazy(() =>
-  import('./routes/_layout/demo/demo_2/index.lazy').then((d) => d.Route)
+  import('./routes/_layout/demo/demo_2/index.lazy').then((d) => d.Route),
 )
 
 // Populate the FileRoutesByPath interface
@@ -142,7 +142,7 @@ interface LayoutRouteChildren {
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutDemoIdLazyRoute: LayoutDemoIdLazyRoute,
   LayoutDemoIndexLazyRoute: LayoutDemoIndexLazyRoute,
-  LayoutDemoDemo2IndexLazyRoute: LayoutDemoDemo2IndexLazyRoute
+  LayoutDemoDemo2IndexLazyRoute: LayoutDemoDemo2IndexLazyRoute,
 }
 
 const LayoutRouteWithChildren =
@@ -214,7 +214,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   LayoutRoute: LayoutRouteWithChildren,
   AboutRoute: AboutRoute,
-  TestRoute: TestRoute
+  TestRoute: TestRoute,
 }
 
 export const routeTree = rootRoute

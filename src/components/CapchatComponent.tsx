@@ -10,11 +10,17 @@ export default function CapchatComponent(props: CapchatComponentProps) {
         <p>{props.consigne}</p>
       </div>
       <div></div>
-      <div className="flex">
-        <div className="flex">
-            <button><img src="../assets/recharge.webp" alt="reaload" /></button>
-            <button><img src="../assets/casque.webp" alt="listen" ></img></button>
-            <button><img src="../assets/info.webp" alt="Information" ></img></button>
+      <div className='flex'>
+        <div className='flex'>
+          <button>
+            <img src='../assets/recharge.webp' alt='reaload' />
+          </button>
+          <button>
+            <img src='../assets/casque.webp' alt='listen'></img>
+          </button>
+          <button>
+            <img src='../assets/info.webp' alt='Information'></img>
+          </button>
         </div>
         <button>Verifier</button>
       </div>
@@ -22,15 +28,12 @@ export default function CapchatComponent(props: CapchatComponentProps) {
   )
 }
 
-
 function EsquiveComponent() {
-    return (
-      <div>
-        <img></img>
-        <div>
-        </div>
-        <div></div>
-      </div>
-    )
-  }
-  
+  return (
+    <div>
+      <img></img>
+      <div></div>
+      <div></div>
+    </div>
+  )
+}
