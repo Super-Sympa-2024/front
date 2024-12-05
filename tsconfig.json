@@ -10,7 +10,8 @@
     "paths": {
       "@services/*": ["src/services/*"],
       "@models/*": ["src/models/*"],
-      "@components/*": ["src/components/*"]
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"]
     }
   }
 }
