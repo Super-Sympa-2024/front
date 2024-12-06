@@ -47,7 +47,7 @@ function RouteComponent() {
 
       <div className='absolute bottom-0 left-0 w-full h-[40%] bg-gradient-to-t to-[#1970A9] from-[#0A2C43]'>
         <div className='hover:scale-110 duration-300'>
-          <Link>
+          <Link to='/activity'>
             <div className='absolute w-[250px] mx-auto left-[43%] top-[-340px] boat cursor-pointer'>
               <img
                 src={bateau}
