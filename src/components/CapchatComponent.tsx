@@ -11,7 +11,7 @@ import casqueImg from '@assets/casque.webp'
 import starfish_2 from '@assets/green_starfish.webp'
 import infoImg from '@assets/info.webp'
 import poissonbanalImg from '@assets/poissonbanal.webp'
-import reloadImg from '@assets/recharge.webp'
+import reloadImg from '@assets/recharger.webp'
 import starfish_3 from '@assets/red_starfish.webp'
 import wave_bg from '@assets/wave_bg.webp'
 
@@ -28,8 +28,10 @@ interface Item {
 interface GameComponentProps {
   captchaType: number // Type de CAPTCHA (1 = poisson, 2 = étoile de mer, 3 = déchets)
 }
-
-export default function CapchatComponent() {
+interface CapchatComponentProps {
+  onFinish: () => void
+}
+export default function CapchatComponent(props: CapchatComponentProps) {
   // État pour le type de CAPTCHA
   const [captcha_number, set_captcha_number] = useState<number>(
     Math.floor(Math.random() * 3) + 1
@@ -116,7 +118,8 @@ export default function CapchatComponent() {
     setVerifyButtonState('success') // Change l'état du bouton
     setTimeout(() => {
       setCaptchaVisible(false) // Cache le CAPTCHA après 1 seconde
-    }, 1000)
+      props.onFinish()
+    }, 1500)
   }
 
   // Gère l'échec du CAPTCHA
