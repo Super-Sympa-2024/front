@@ -63,7 +63,7 @@ export default function ChartComponent() {
     labels: hours.map((hour) => `${hour}:00`), // Labels des heures
     datasets: [
       {
-        label: 'Nombre de requêtes par heure',
+        label: 'Nombre de connexions par heure',
         data: requestCounts, // Données du graphique
         fill: false,
         borderColor: 'rgba(75, 192, 192, 1)', // Couleur de la ligne
@@ -73,9 +73,9 @@ export default function ChartComponent() {
   }
 
   return (
-    <div>
-      <h2>Nombre de requêtes par heure</h2>
+    <>
+      <h2>Nombre de connexions par heure</h2>
       <Line data={chartData} />
-    </div>
+    </>
   )
 }
