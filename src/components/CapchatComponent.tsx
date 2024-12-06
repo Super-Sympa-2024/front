@@ -59,10 +59,18 @@ export default function CapchatComponent() {
 
   // Définit les instructions en fonction du type de CAPTCHA
   function change_captcha_title() {
-    if (captcha_number === 1) set_captcha_title('Cliquez sur tous les poissons')
+    if (captcha_number === 1)
+      set_captcha_title(
+        'Cliquez sur tous les poissons pour les protéger de la pollution'
+      )
     if (captcha_number === 2)
-      set_captcha_title('Cliquez sur toutes les étoiles de mer')
-    if (captcha_number === 3) set_captcha_title('Cliquez sur tous les déchets')
+      set_captcha_title(
+        'Cliquez sur toutes les étoiles de mer pour les sauver de ces fonds marins détruits par l humain'
+      )
+    if (captcha_number === 3)
+      set_captcha_title(
+        'Cliquez sur tous les déchets pour nettoyer les eaux et laisser vivre les les êtres marins'
+      )
   }
 
   // Recharge le CAPTCHA avec un nouveau type
