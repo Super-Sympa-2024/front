@@ -19,12 +19,12 @@ import { Route as LayoutImport } from './routes/_layout'
 
 // Create Virtual Routes
 
-const CaptchaLazyImport = createFileRoute('/captcha')()
-const ActivityLazyImport = createFileRoute('/activity')()
 const TLazyImport = createFileRoute('/t')()
 const StatsLazyImport = createFileRoute('/stats')()
 const RegisterLazyImport = createFileRoute('/register')()
 const LoginLazyImport = createFileRoute('/login')()
+const CaptchaLazyImport = createFileRoute('/captcha')()
+const ActivityLazyImport = createFileRoute('/activity')()
 const IndexLazyImport = createFileRoute('/')()
 const LayoutDemoIndexLazyImport = createFileRoute('/_layout/demo/')()
 const LayoutDemoIdLazyImport = createFileRoute('/_layout/demo/$id')()
@@ -34,17 +34,6 @@ const LayoutDemoDemo2IndexLazyImport = createFileRoute(
 
 // Create/Update Routes
 
-const CaptchaLazyRoute = CaptchaLazyImport.update({
-  id: '/captcha',
-  path: '/captcha',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/captcha.lazy').then((d) => d.Route))
-
-const ActivityLazyRoute = ActivityLazyImport.update({
-  id: '/activity',
-  path: '/activity',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/activity.lazy').then((d) => d.Route))
 const TLazyRoute = TLazyImport.update({
   id: '/t',
   path: '/t',
@@ -68,6 +57,18 @@ const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+
+const CaptchaLazyRoute = CaptchaLazyImport.update({
+  id: '/captcha',
+  path: '/captcha',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/captcha.lazy').then((d) => d.Route))
+
+const ActivityLazyRoute = ActivityLazyImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/activity.lazy').then((d) => d.Route))
 
 const TestRoute = TestImport.update({
   id: '/test',
@@ -160,6 +161,8 @@ declare module '@tanstack/react-router' {
       path: '/captcha'
       fullPath: '/captcha'
       preLoaderRoute: typeof CaptchaLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -356,7 +359,7 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-}
+
 /* ROUTE_MANIFEST_START
 {
   "routes": {
@@ -368,7 +371,7 @@ export const routeTree = rootRoute
         "/about",
         "/test",
         "/activity",
-        "/captcha"
+        "/captcha",
         "/login",
         "/register",
         "/stats",
@@ -397,6 +400,7 @@ export const routeTree = rootRoute
     },
     "/captcha": {
       "filePath": "captcha.lazy.tsx"
+    },
     "/login": {
       "filePath": "login.lazy.tsx"
     },
