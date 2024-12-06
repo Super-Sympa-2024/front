@@ -23,6 +23,8 @@ const TLazyImport = createFileRoute('/t')()
 const StatsLazyImport = createFileRoute('/stats')()
 const RegisterLazyImport = createFileRoute('/register')()
 const LoginLazyImport = createFileRoute('/login')()
+const CaptchaLazyImport = createFileRoute('/captcha')()
+const ActivityLazyImport = createFileRoute('/activity')()
 const IndexLazyImport = createFileRoute('/')()
 const LayoutDemoIndexLazyImport = createFileRoute('/_layout/demo/')()
 const LayoutDemoIdLazyImport = createFileRoute('/_layout/demo/$id')()
@@ -55,6 +57,18 @@ const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+
+const CaptchaLazyRoute = CaptchaLazyImport.update({
+  id: '/captcha',
+  path: '/captcha',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/captcha.lazy').then((d) => d.Route))
+
+const ActivityLazyRoute = ActivityLazyImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/activity.lazy').then((d) => d.Route))
 
 const TestRoute = TestImport.update({
   id: '/test',
@@ -135,6 +149,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestImport
       parentRoute: typeof rootRoute
     }
+    '/activity': {
+      id: '/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof ActivityLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/captcha': {
+      id: '/captcha'
+      path: '/captcha'
+      fullPath: '/captcha'
+      preLoaderRoute: typeof CaptchaLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -209,6 +237,8 @@ export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
+  '/activity': typeof ActivityLazyRoute
+  '/captcha': typeof CaptchaLazyRoute
   '/login': typeof LoginLazyRoute
   '/register': typeof RegisterLazyRoute
   '/stats': typeof StatsLazyRoute
@@ -223,6 +253,8 @@ export interface FileRoutesByTo {
   '': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
+  '/activity': typeof ActivityLazyRoute
+  '/captcha': typeof CaptchaLazyRoute
   '/login': typeof LoginLazyRoute
   '/register': typeof RegisterLazyRoute
   '/stats': typeof StatsLazyRoute
@@ -238,6 +270,8 @@ export interface FileRoutesById {
   '/_layout': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
+  '/activity': typeof ActivityLazyRoute
+  '/captcha': typeof CaptchaLazyRoute
   '/login': typeof LoginLazyRoute
   '/register': typeof RegisterLazyRoute
   '/stats': typeof StatsLazyRoute
@@ -254,6 +288,8 @@ export interface FileRouteTypes {
     | ''
     | '/about'
     | '/test'
+    | '/activity'
+    | '/captcha'
     | '/login'
     | '/register'
     | '/stats'
@@ -267,6 +303,8 @@ export interface FileRouteTypes {
     | ''
     | '/about'
     | '/test'
+    | '/activity'
+    | '/captcha'
     | '/login'
     | '/register'
     | '/stats'
@@ -280,6 +318,8 @@ export interface FileRouteTypes {
     | '/_layout'
     | '/about'
     | '/test'
+    | '/activity'
+    | '/captcha'
     | '/login'
     | '/register'
     | '/stats'
@@ -295,6 +335,8 @@ export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   AboutRoute: typeof AboutRoute
   TestRoute: typeof TestRoute
+  ActivityLazyRoute: typeof ActivityLazyRoute
+  CaptchaLazyRoute: typeof CaptchaLazyRoute
   LoginLazyRoute: typeof LoginLazyRoute
   RegisterLazyRoute: typeof RegisterLazyRoute
   StatsLazyRoute: typeof StatsLazyRoute
@@ -306,6 +348,8 @@ const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AboutRoute: AboutRoute,
   TestRoute: TestRoute,
+  ActivityLazyRoute: ActivityLazyRoute,
+  CaptchaLazyRoute: CaptchaLazyRoute,
   LoginLazyRoute: LoginLazyRoute,
   RegisterLazyRoute: RegisterLazyRoute,
   StatsLazyRoute: StatsLazyRoute,
@@ -326,6 +370,8 @@ export const routeTree = rootRoute
         "/_layout",
         "/about",
         "/test",
+        "/activity",
+        "/captcha",
         "/login",
         "/register",
         "/stats",
@@ -348,6 +394,12 @@ export const routeTree = rootRoute
     },
     "/test": {
       "filePath": "test.tsx"
+    },
+    "/activity": {
+      "filePath": "activity.lazy.tsx"
+    },
+    "/captcha": {
+      "filePath": "captcha.lazy.tsx"
     },
     "/login": {
       "filePath": "login.lazy.tsx"
