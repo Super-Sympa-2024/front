@@ -20,6 +20,7 @@ import { Route as LayoutImport } from './routes/_layout'
 // Create Virtual Routes
 
 const TLazyImport = createFileRoute('/t')()
+const RegisterLazyImport = createFileRoute('/register')()
 const LoginLazyImport = createFileRoute('/login')()
 const IndexLazyImport = createFileRoute('/')()
 const LayoutDemoIndexLazyImport = createFileRoute('/_layout/demo/')()
@@ -35,6 +36,12 @@ const TLazyRoute = TLazyImport.update({
   path: '/t',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/t.lazy').then((d) => d.Route))
+
+const RegisterLazyRoute = RegisterLazyImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/register.lazy').then((d) => d.Route))
 
 const LoginLazyRoute = LoginLazyImport.update({
   id: '/login',
@@ -128,6 +135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginLazyImport
       parentRoute: typeof rootRoute
     }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/t': {
       id: '/t'
       path: '/t'
@@ -182,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
   '/login': typeof LoginLazyRoute
+  '/register': typeof RegisterLazyRoute
   '/t': typeof TLazyRoute
   '/demo/$id': typeof LayoutDemoIdLazyRoute
   '/demo': typeof LayoutDemoIndexLazyRoute
@@ -194,6 +209,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
   '/login': typeof LoginLazyRoute
+  '/register': typeof RegisterLazyRoute
   '/t': typeof TLazyRoute
   '/demo/$id': typeof LayoutDemoIdLazyRoute
   '/demo': typeof LayoutDemoIndexLazyRoute
@@ -207,6 +223,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
   '/login': typeof LoginLazyRoute
+  '/register': typeof RegisterLazyRoute
   '/t': typeof TLazyRoute
   '/_layout/demo/$id': typeof LayoutDemoIdLazyRoute
   '/_layout/demo/': typeof LayoutDemoIndexLazyRoute
@@ -221,6 +238,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/test'
     | '/login'
+    | '/register'
     | '/t'
     | '/demo/$id'
     | '/demo'
@@ -232,6 +250,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/test'
     | '/login'
+    | '/register'
     | '/t'
     | '/demo/$id'
     | '/demo'
@@ -243,6 +262,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/test'
     | '/login'
+    | '/register'
     | '/t'
     | '/_layout/demo/$id'
     | '/_layout/demo/'
@@ -256,6 +276,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   TestRoute: typeof TestRoute
   LoginLazyRoute: typeof LoginLazyRoute
+  RegisterLazyRoute: typeof RegisterLazyRoute
   TLazyRoute: typeof TLazyRoute
 }
 
@@ -265,6 +286,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   TestRoute: TestRoute,
   LoginLazyRoute: LoginLazyRoute,
+  RegisterLazyRoute: RegisterLazyRoute,
   TLazyRoute: TLazyRoute,
 }
 
@@ -283,6 +305,7 @@ export const routeTree = rootRoute
         "/about",
         "/test",
         "/login",
+        "/register",
         "/t"
       ]
     },
@@ -305,6 +328,9 @@ export const routeTree = rootRoute
     },
     "/login": {
       "filePath": "login.lazy.tsx"
+    },
+    "/register": {
+      "filePath": "register.lazy.tsx"
     },
     "/t": {
       "filePath": "t.lazy.tsx"
