@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -8,82 +9,73 @@ import {
   Title,
   Tooltip
 } from 'chart.js'
-import { Line } from 'react-chartjs-2' // Import de la version Line de Chart.js
+import { Line } from 'react-chartjs-2'
 
+import { EventModel } from '@models/EventModel'
 import { EventTypeEnum } from '@models/EventTypeEnum'
 
 import { useEventLogger } from '@services/eventLogger'
 
-// Enregistrement des composants nécessaires pour Chart.js
+// Enregistrer les composants de Chart.js
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement
 )
 
-const ChartComponent = () => {
-  // Données pour le graphique
-  const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'], // Mois
+export default function ChartComponent() {
+  const { newEvent, getEventsByType } = useEventLogger()
+
+  const [data, setData] = useState<EventModel[] | null>(null)
+
+  useEffect(() => {
+    async function fetchData() {
+      const localData = await getEventsByType(EventTypeEnum.CONNEXION)
+      setData(localData)
+    }
+
+    fetchData()
+  }, [])
+
+  if (!data) {
+    return <p>Loading...</p>
+  }
+
+  // Transformation des données pour compter les événements par heure
+  const eventsPerHour = data.reduce(
+    (acc, event) => {
+      const hour = new Date(event.timestamp || '').getHours() // Extraire l'heure de l'événement
+      acc[hour] = acc[hour] ? acc[hour] + 1 : 1 // Incrémenter le compteur pour l'heure correspondante
+      return acc
+    },
+    {} as Record<number, number>
+  )
+
+  // Formatage des labels et des valeurs pour Chart.js
+  const hours = Array.from({ length: 24 }, (_, i) => i) // Les heures de 0 à 23
+  const requestCounts = hours.map((hour) => eventsPerHour[hour] || 0) // Nombre de requêtes par heure
+
+  const chartData = {
+    labels: hours.map((hour) => `${hour}:00`), // Labels des heures
     datasets: [
       {
-        label: 'Ventes mensuelles', // Titre du dataset
-        data: [12, 19, 3, 5, 2, 3, 7], // Valeurs du dataset
-        fill: false, // Remplir sous la courbe (false pour un graphique en ligne)
-        borderColor: 'rgba(75,192,192,1)', // Couleur de la ligne
-        tension: 0.1 // Courbure de la ligne
+        label: 'Nombre de requêtes par heure',
+        data: requestCounts, // Données du graphique
+        fill: false,
+        borderColor: 'rgba(75, 192, 192, 1)', // Couleur de la ligne
+        tension: 0.1
       }
     ]
   }
 
-  // Options du graphique
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top'
-      },
-      tooltip: {
-        mode: 'index',
-        intersect: false
-      }
-    },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: 'Temps'
-        }
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Connexion'
-        }
-      }
-    }
-  }
-
   return (
     <div>
-      <h2>Graphique des Ventes Mensuelles</h2>
-      <button
-        onClick={() => useEventLogger().newEvent(EventTypeEnum.CONNEXION)}
-      >
-        click
-      </button>
-      <button
-        onClick={() => useEventLogger().getEventsByType(EventTypeEnum.CONNEXION)}
-      >
-        GetUnknown
-      </button>
-      <Line data={data} options={options} />
+      <h2>Nombre de requêtes par heure</h2>
+      <Line data={chartData} />
     </div>
   )
 }
-
-export default ChartComponent

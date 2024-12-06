@@ -1,10 +1,11 @@
-import { Event } from '@models/EventModel'
+import { EventModel } from '@models/EventModel'
 import { EventTypeEnum } from '@models/EventTypeEnum'
+
 import { apiUrl } from '@services/envValueService'
 
 export function useEventLogger() {
   async function newEvent(eventType: EventTypeEnum) {
-    const eventToSend: Event = {
+    const eventToSend: EventModel = {
       eventType: eventType,
       userId: 2
     }
@@ -21,14 +22,13 @@ export function useEventLogger() {
   }
 
   async function getEventsByType(eventType: EventTypeEnum) {
-    const apiUrl = 'http://localhost:3000/'
     const response = await fetch(`${apiUrl}event/type/${eventType}`).then(
       (response) => response.json()
     )
 
     console.log(response)
 
-    return response;
+    return response
   }
 
   return {

@@ -6,7 +6,10 @@ export const Route = createLazyFileRoute('/stats')({
 })
 
 function RouteComponent() {
-  return (<div>
-    <ChartComponent />
+  return (
+  <div>
+    <div className='w-1/2'>
+      <ChartComponent />
+    </div>
   </div>)
 }

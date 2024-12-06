@@ -20,8 +20,8 @@ import { Route as LayoutImport } from './routes/_layout'
 // Create Virtual Routes
 
 const TLazyImport = createFileRoute('/t')()
-const LoginLazyImport = createFileRoute('/login')()
 const StatsLazyImport = createFileRoute('/stats')()
+const LoginLazyImport = createFileRoute('/login')()
 const IndexLazyImport = createFileRoute('/')()
 const LayoutDemoIndexLazyImport = createFileRoute('/_layout/demo/')()
 const LayoutDemoIdLazyImport = createFileRoute('/_layout/demo/$id')()
@@ -128,18 +128,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestImport
       parentRoute: typeof rootRoute
     }
-    '/stats': {
-      id: '/stats'
-      path: '/stats'
-      fullPath: '/stats'
-      preLoaderRoute: typeof StatsLazyImport
-      parentRoute: typeof rootRoute
-    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsLazyImport
       parentRoute: typeof rootRoute
     }
     '/t': {
@@ -195,6 +195,8 @@ export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
+  '/login': typeof LoginLazyRoute
+  '/stats': typeof StatsLazyRoute
   '/t': typeof TLazyRoute
   '/demo/$id': typeof LayoutDemoIdLazyRoute
   '/demo': typeof LayoutDemoIndexLazyRoute
@@ -206,6 +208,8 @@ export interface FileRoutesByTo {
   '': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
+  '/login': typeof LoginLazyRoute
+  '/stats': typeof StatsLazyRoute
   '/t': typeof TLazyRoute
   '/demo/$id': typeof LayoutDemoIdLazyRoute
   '/demo': typeof LayoutDemoIndexLazyRoute
@@ -218,6 +222,8 @@ export interface FileRoutesById {
   '/_layout': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
+  '/login': typeof LoginLazyRoute
+  '/stats': typeof StatsLazyRoute
   '/t': typeof TLazyRoute
   '/_layout/demo/$id': typeof LayoutDemoIdLazyRoute
   '/_layout/demo/': typeof LayoutDemoIndexLazyRoute
@@ -231,6 +237,8 @@ export interface FileRouteTypes {
     | ''
     | '/about'
     | '/test'
+    | '/login'
+    | '/stats'
     | '/t'
     | '/demo/$id'
     | '/demo'
@@ -241,6 +249,8 @@ export interface FileRouteTypes {
     | ''
     | '/about'
     | '/test'
+    | '/login'
+    | '/stats'
     | '/t'
     | '/demo/$id'
     | '/demo'
@@ -251,6 +261,8 @@ export interface FileRouteTypes {
     | '/_layout'
     | '/about'
     | '/test'
+    | '/login'
+    | '/stats'
     | '/t'
     | '/_layout/demo/$id'
     | '/_layout/demo/'
@@ -292,8 +304,8 @@ export const routeTree = rootRoute
         "/_layout",
         "/about",
         "/test",
-        "/stats",
         "/login",
+        "/stats",
         "/t"
       ]
     },
