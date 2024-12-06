@@ -1,5 +1,6 @@
 import { Event } from '@models/EventModel'
 import { EventTypeEnum } from '@models/EventTypeEnum'
+import { apiUrl } from '@services/envValueService'
 
 export function useEventLogger() {
   async function newEvent(eventType: EventTypeEnum) {
@@ -8,9 +9,6 @@ export function useEventLogger() {
       userId: 1
     }
 
-    console.log(eventToSend)
-
-    const apiUrl = 'http://localhost:3000/'
     const response = await fetch(`${apiUrl}event`, {
       method: 'POST',
       headers: {
