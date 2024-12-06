@@ -20,8 +20,8 @@ import { Route as LayoutImport } from './routes/_layout'
 // Create Virtual Routes
 
 const TLazyImport = createFileRoute('/t')()
-const RegisterLazyImport = createFileRoute('/register')()
 const StatsLazyImport = createFileRoute('/stats')()
+const RegisterLazyImport = createFileRoute('/register')()
 const LoginLazyImport = createFileRoute('/login')()
 const IndexLazyImport = createFileRoute('/')()
 const LayoutDemoIndexLazyImport = createFileRoute('/_layout/demo/')()
@@ -38,17 +38,17 @@ const TLazyRoute = TLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/t.lazy').then((d) => d.Route))
 
-const RegisterLazyRoute = RegisterLazyImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/register.lazy').then((d) => d.Route))
-
 const StatsLazyRoute = StatsLazyImport.update({
   id: '/stats',
   path: '/stats',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/stats.lazy').then((d) => d.Route))
+
+const RegisterLazyRoute = RegisterLazyImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/register.lazy').then((d) => d.Route))
 
 const LoginLazyRoute = LoginLazyImport.update({
   id: '/login',
@@ -239,8 +239,8 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
   '/login': typeof LoginLazyRoute
-  '/stats': typeof StatsLazyRoute
   '/register': typeof RegisterLazyRoute
+  '/stats': typeof StatsLazyRoute
   '/t': typeof TLazyRoute
   '/_layout/demo/$id': typeof LayoutDemoIdLazyRoute
   '/_layout/demo/': typeof LayoutDemoIndexLazyRoute
@@ -268,8 +268,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/test'
     | '/login'
-    | '/stats'
     | '/register'
+    | '/stats'
     | '/t'
     | '/demo/$id'
     | '/demo'
@@ -327,8 +327,8 @@ export const routeTree = rootRoute
         "/about",
         "/test",
         "/login",
-        "/stats",
         "/register",
+        "/stats",
         "/t"
       ]
     },
