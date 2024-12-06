@@ -21,6 +21,10 @@ import { Route as LayoutImport } from './routes/_layout'
 
 const CaptchaLazyImport = createFileRoute('/captcha')()
 const ActivityLazyImport = createFileRoute('/activity')()
+const TLazyImport = createFileRoute('/t')()
+const RegisterLazyImport = createFileRoute('/register')()
+const StatsLazyImport = createFileRoute('/stats')()
+const LoginLazyImport = createFileRoute('/login')()
 const IndexLazyImport = createFileRoute('/')()
 const LayoutDemoIndexLazyImport = createFileRoute('/_layout/demo/')()
 const LayoutDemoIdLazyImport = createFileRoute('/_layout/demo/$id')()
@@ -41,6 +45,29 @@ const ActivityLazyRoute = ActivityLazyImport.update({
   path: '/activity',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/activity.lazy').then((d) => d.Route))
+const TLazyRoute = TLazyImport.update({
+  id: '/t',
+  path: '/t',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/t.lazy').then((d) => d.Route))
+
+const RegisterLazyRoute = RegisterLazyImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/register.lazy').then((d) => d.Route))
+
+const StatsLazyRoute = StatsLazyImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/stats.lazy').then((d) => d.Route))
+
+const LoginLazyRoute = LoginLazyImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
 
 const TestRoute = TestImport.update({
   id: '/test',
@@ -133,6 +160,32 @@ declare module '@tanstack/react-router' {
       path: '/captcha'
       fullPath: '/captcha'
       preLoaderRoute: typeof CaptchaLazyImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/t': {
+      id: '/t'
+      path: '/t'
+      fullPath: '/t'
+      preLoaderRoute: typeof TLazyImport
       parentRoute: typeof rootRoute
     }
     '/_layout/demo/$id': {
@@ -183,6 +236,10 @@ export interface FileRoutesByFullPath {
   '/test': typeof TestRoute
   '/activity': typeof ActivityLazyRoute
   '/captcha': typeof CaptchaLazyRoute
+  '/login': typeof LoginLazyRoute
+  '/register': typeof RegisterLazyRoute
+  '/stats': typeof StatsLazyRoute
+  '/t': typeof TLazyRoute
   '/demo/$id': typeof LayoutDemoIdLazyRoute
   '/demo': typeof LayoutDemoIndexLazyRoute
   '/demo/demo_2': typeof LayoutDemoDemo2IndexLazyRoute
@@ -195,6 +252,10 @@ export interface FileRoutesByTo {
   '/test': typeof TestRoute
   '/activity': typeof ActivityLazyRoute
   '/captcha': typeof CaptchaLazyRoute
+  '/login': typeof LoginLazyRoute
+  '/register': typeof RegisterLazyRoute
+  '/stats': typeof StatsLazyRoute
+  '/t': typeof TLazyRoute
   '/demo/$id': typeof LayoutDemoIdLazyRoute
   '/demo': typeof LayoutDemoIndexLazyRoute
   '/demo/demo_2': typeof LayoutDemoDemo2IndexLazyRoute
@@ -208,6 +269,10 @@ export interface FileRoutesById {
   '/test': typeof TestRoute
   '/activity': typeof ActivityLazyRoute
   '/captcha': typeof CaptchaLazyRoute
+  '/login': typeof LoginLazyRoute
+  '/stats': typeof StatsLazyRoute
+  '/register': typeof RegisterLazyRoute
+  '/t': typeof TLazyRoute
   '/_layout/demo/$id': typeof LayoutDemoIdLazyRoute
   '/_layout/demo/': typeof LayoutDemoIndexLazyRoute
   '/_layout/demo/demo_2/': typeof LayoutDemoDemo2IndexLazyRoute
@@ -222,6 +287,10 @@ export interface FileRouteTypes {
     | '/test'
     | '/activity'
     | '/captcha'
+    | '/login'
+    | '/register'
+    | '/stats'
+    | '/t'
     | '/demo/$id'
     | '/demo'
     | '/demo/demo_2'
@@ -233,6 +302,10 @@ export interface FileRouteTypes {
     | '/test'
     | '/activity'
     | '/captcha'
+    | '/login'
+    | '/stats'
+    | '/register'
+    | '/t'
     | '/demo/$id'
     | '/demo'
     | '/demo/demo_2'
@@ -244,6 +317,10 @@ export interface FileRouteTypes {
     | '/test'
     | '/activity'
     | '/captcha'
+    | '/login'
+    | '/register'
+    | '/stats'
+    | '/t'
     | '/_layout/demo/$id'
     | '/_layout/demo/'
     | '/_layout/demo/demo_2/'
@@ -257,6 +334,10 @@ export interface RootRouteChildren {
   TestRoute: typeof TestRoute
   ActivityLazyRoute: typeof ActivityLazyRoute
   CaptchaLazyRoute: typeof CaptchaLazyRoute
+  LoginLazyRoute: typeof LoginLazyRoute
+  RegisterLazyRoute: typeof RegisterLazyRoute
+  StatsLazyRoute: typeof StatsLazyRoute
+  TLazyRoute: typeof TLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -266,12 +347,16 @@ const rootRouteChildren: RootRouteChildren = {
   TestRoute: TestRoute,
   ActivityLazyRoute: ActivityLazyRoute,
   CaptchaLazyRoute: CaptchaLazyRoute,
+  LoginLazyRoute: LoginLazyRoute,
+  RegisterLazyRoute: RegisterLazyRoute,
+  StatsLazyRoute: StatsLazyRoute,
+  TLazyRoute: TLazyRoute,
 }
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
+}
 /* ROUTE_MANIFEST_START
 {
   "routes": {
@@ -284,6 +369,10 @@ export const routeTree = rootRoute
         "/test",
         "/activity",
         "/captcha"
+        "/login",
+        "/stats",
+        "/register",
+        "/t"
       ]
     },
     "/": {
@@ -308,6 +397,17 @@ export const routeTree = rootRoute
     },
     "/captcha": {
       "filePath": "captcha.lazy.tsx"
+    "/login": {
+      "filePath": "login.lazy.tsx"
+    },
+    "/register": {
+      "filePath": "register.lazy.tsx"
+    },
+    "/stats": {
+      "filePath": "stats.lazy.tsx"
+    },
+    "/t": {
+      "filePath": "t.lazy.tsx"
     },
     "/_layout/demo/$id": {
       "filePath": "_layout/demo/$id.lazy.tsx",
