@@ -8,6 +8,9 @@ import algue1 from '@assets/algue1.webp'
 import algue2 from '@assets/algue2.webp'
 import algue3 from '@assets/algue3.webp'
 import alguebronzee from '@assets/alguebronzee.webp'
+import gitclone from '@assets/gitclone.webp'
+import overdose from '@assets/overdose.webp'
+import valideparlastreet from '@assets/valideparlastreet.webp'
 
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
@@ -124,7 +127,7 @@ export default function AbyssesRouteComponent() {
                 {zone.description}
               </p>
 
-              {[1, 2].map((_, fishIndex) => (<img
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((_, fishIndex) => (<img
                   key={fishIndex}
                   src={zone.img}
                   alt={`Fish ${fishIndex + 1}`}
@@ -141,59 +144,66 @@ export default function AbyssesRouteComponent() {
         >
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(20)].map((_, i) => (<div
-                key={i}
-                className="absolute bottom-0 w-2 h-2 bg-white rounded-full bubble"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 5}s`,
-                  animationDuration: `${Math.random() * 3 + 2}s`
-                }}
-              />))}
+              key={i}
+              className="absolute bottom-0 w-2 h-2 bg-white rounded-full bubble"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${Math.random() * 3 + 2}s`
+              }}
+            />))}
           </div>
 
           <div className="flex flex-wrap justify-center items-center relative">
-            {organizationMembersData.length > 0 ? (organizationMembersData.map((organizationMembers) => {
-                const commits = numberOfCommitsByUser?.find(user => user.login === organizationMembers.login)
-                return (<div key={organizationMembers.id} className="flex flex-col items-center m-12">
-                    <img className="size-24 rounded-full mb-2 float" src={organizationMembers.avatar_url}
-                         alt={`Avatar de ${organizationMembers.login}`} />
-                    <a href={organizationMembers.html_url} target="_blank" rel="noopener noreferrer"
-                       className="text-white hover:underline float">
-                      <strong>{organizationMembers.login}</strong>
-                    </a>
-                    <p className="float">Commits: {commits ? commits.number : 0}</p>
-                  </div>)
-              })) : (<p>Le token a expiré, désolé !</p>)}
+            <img className="size-96" src={gitclone} />
+            <img className="size-96" src={valideparlastreet} />
+            <img className="size-96" src={overdose} />
           </div>
 
-          <div className="relative h-full w-full bg-transparent flex items-end justify-evenly">
-            <img
-              src={algue1}
-              alt="Algue 1"
-              className="w-24 h-auto mb-0"
-            />
-            <img
-              src={alguebronzee}
-              alt="Algue 2"
-              className="w-32 h-auto mb-0"
-            />
-            <img
-              src={algue3}
-              alt="Algue 3"
-              className="w-28 h-auto mb-0"
-            />
-            <img
-              src={algue2}
-              alt="Algue 3"
-              className="w-28 h-auto mb-0"
-            />
-            <img
-              src={alguebronzee}
-              alt="Algue 3"
-              className="w-28 h-auto mb-0"
-            />
-          </div>
+            <div className="flex flex-wrap justify-center items-center relative">
+              {organizationMembersData.length > 0 ? (organizationMembersData.map((organizationMembers) => {
+                const commits = numberOfCommitsByUser?.find(user => user.login === organizationMembers.login)
+                return (<div key={organizationMembers.id} className="flex flex-col items-center mt-48 m-12">
+                  <img className="size-24 rounded-full mb-2 float" src={organizationMembers.avatar_url}
+                       alt={`Avatar de ${organizationMembers.login}`} />
+                  <a href={organizationMembers.html_url} target="_blank" rel="noopener noreferrer"
+                     className="text-white hover:underline float">
+                    <strong>{organizationMembers.login}</strong>
+                  </a>
+                  <p className="float">Commits: {commits ? commits.number : 0}</p>
+                </div>)
+              })) : (<p>Le token a expiré, désolé !</p>)}
+            </div>
+
+            <div className="relative h-full w-full bg-transparent flex items-end justify-evenly">
+              <img
+                src={algue1}
+                alt="Algue 1"
+                className="w-24 h-auto mb-0"
+              />
+              <img
+                src={alguebronzee}
+                alt="Algue 2"
+                className="w-32 h-auto mb-0"
+              />
+              <img
+                src={algue3}
+                alt="Algue 3"
+                className="w-28 h-auto mb-0"
+              />
+              <img
+                src={algue2}
+                alt="Algue 3"
+                className="w-28 h-auto mb-0"
+              />
+              <img
+                src={alguebronzee}
+                alt="Algue 3"
+                className="w-28 h-auto mb-0"
+              />
+            </div>
         </motion.section>
       </div>
-    </>)
+  </>
+)
 }
