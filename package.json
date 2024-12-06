@@ -29,7 +29,7 @@
     "@octokit/types": "^13.6.2",
     "@tanstack/react-router": "^1.82.2",
     "framer-motion": "^11.13.1",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1"
