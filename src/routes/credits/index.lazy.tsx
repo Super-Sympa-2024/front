@@ -4,6 +4,10 @@ import '@assets/credits.css'
 import poissonbanal from '@assets/poissonbanal.webp'
 import anguille from '@assets/anguille.webp'
 import blobfish from '@assets/blobfish.webp'
+import algue1 from '@assets/algue1.webp'
+import algue2 from '@assets/algue2.webp'
+import algue3 from '@assets/algue3.webp'
+import alguebronzee from '@assets/alguebronzee.webp'
 
 import { motion } from 'framer-motion'
 
@@ -43,7 +47,7 @@ export default function AbyssesRouteComponent() {
       description:
         "La vie ici est rare et étrange, tout comme l'énergie. Il se fait tard, et les super sympa doivent avancer malgré tout.",
       bg: '#1e3a8a',
-      img: 'creature.png' // Assurez-vous que cette image existe dans le dossier assets
+      img: 'creature.png'
     },
     {
       id: 5,
@@ -51,13 +55,17 @@ export default function AbyssesRouteComponent() {
       description:
         "Les fosses océaniques : la dernière frontière. Il ne leur reste plus qu'à tout merger et contempler leur site. Les super sympa peuvent se reposer, la nuit a été longue.",
       bg: '#111827',
-      img: 'deepsea-creature.png' // Assurez-vous que cette image existe dans le dossier assets
+      img: 'deepsea-creature.png'
     }
   ]
 
+  const getRandomPosition = () => ({
+    top: `${Math.random() * 80}%`,
+    left: `${Math.random() * 80}%`
+  })
+
   return (
     <>
-      {/* Sections principales */}
       <div className='w-full min-h-screen bg-abysses-gradient overflow-hidden'>
         {zones.map((zone, index) => {
           const nextZone = zones[index + 1]
@@ -97,14 +105,54 @@ export default function AbyssesRouteComponent() {
               <p className='text-xl mb-6 text-center px-4'>
                 {zone.description}
               </p>
-              <img
-                src={zone.img}  // Utilisation de la valeur dynamique pour l'image
-                alt={zone.name}
-                className='w-32 h-32 animate-float'
-              />
+
+              {/* Poissons aléatoires */}
+              {[1, 2].map((_, fishIndex) => (
+                <img
+                  key={fishIndex}
+                  src={zone.img}
+                  alt={`Fish ${fishIndex + 1}`}
+                  className='absolute w-20 h-20 animate-float'
+                  style={getRandomPosition()} // Positionnement aléatoire
+                />
+              ))}
             </motion.section>
           )
         })}
+
+        {/* Fond de l'océan avec les algues */}
+        <div className='relative w-full h-32 bg-transparent flex items-end justify-evenly'>
+          <img
+            src={algue1}
+            alt='Algue 1'
+            className='w-24 h-auto mb-0'
+            style={{ marginBottom: '-5px' }} // Ajustement pour coller au sol
+          />
+          <img
+            src={alguebronzee}
+            alt='Algue 2'
+            className='w-32 h-auto mb-0'
+            style={{ marginBottom: '-5px' }} // Ajustement pour coller au sol
+          />
+          <img
+            src={algue3}
+            alt='Algue 3'
+            className='w-28 h-auto mb-0'
+            style={{ marginBottom: '-5px' }} // Ajustement pour coller au sol
+          />
+          <img
+            src={algue2}
+            alt='Algue 3'
+            className='w-28 h-auto mb-0'
+            style={{ marginBottom: '-5px' }} // Ajustement pour coller au sol
+          />
+          <img
+            src={alguebronzee}
+            alt='Algue 3'
+            className='w-28 h-auto mb-0'
+            style={{ marginBottom: '-5px' }} // Ajustement pour coller au sol
+          />
+        </div>
       </div>
     </>
   )
