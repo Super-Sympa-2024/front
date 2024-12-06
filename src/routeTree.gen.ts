@@ -19,6 +19,8 @@ import { Route as LayoutImport } from './routes/_layout'
 
 // Create Virtual Routes
 
+const CaptchaLazyImport = createFileRoute('/captcha')()
+const ActivityLazyImport = createFileRoute('/activity')()
 const IndexLazyImport = createFileRoute('/')()
 const LayoutDemoIndexLazyImport = createFileRoute('/_layout/demo/')()
 const LayoutDemoIdLazyImport = createFileRoute('/_layout/demo/$id')()
@@ -27,6 +29,18 @@ const LayoutDemoDemo2IndexLazyImport = createFileRoute(
 )()
 
 // Create/Update Routes
+
+const CaptchaLazyRoute = CaptchaLazyImport.update({
+  id: '/captcha',
+  path: '/captcha',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/captcha.lazy').then((d) => d.Route))
+
+const ActivityLazyRoute = ActivityLazyImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/activity.lazy').then((d) => d.Route))
 
 const TestRoute = TestImport.update({
   id: '/test',
@@ -107,6 +121,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestImport
       parentRoute: typeof rootRoute
     }
+    '/activity': {
+      id: '/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof ActivityLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/captcha': {
+      id: '/captcha'
+      path: '/captcha'
+      fullPath: '/captcha'
+      preLoaderRoute: typeof CaptchaLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/_layout/demo/$id': {
       id: '/_layout/demo/$id'
       path: '/demo/$id'
@@ -153,6 +181,8 @@ export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
+  '/activity': typeof ActivityLazyRoute
+  '/captcha': typeof CaptchaLazyRoute
   '/demo/$id': typeof LayoutDemoIdLazyRoute
   '/demo': typeof LayoutDemoIndexLazyRoute
   '/demo/demo_2': typeof LayoutDemoDemo2IndexLazyRoute
@@ -163,6 +193,8 @@ export interface FileRoutesByTo {
   '': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
+  '/activity': typeof ActivityLazyRoute
+  '/captcha': typeof CaptchaLazyRoute
   '/demo/$id': typeof LayoutDemoIdLazyRoute
   '/demo': typeof LayoutDemoIndexLazyRoute
   '/demo/demo_2': typeof LayoutDemoDemo2IndexLazyRoute
@@ -174,6 +206,8 @@ export interface FileRoutesById {
   '/_layout': typeof LayoutRouteWithChildren
   '/about': typeof AboutRoute
   '/test': typeof TestRoute
+  '/activity': typeof ActivityLazyRoute
+  '/captcha': typeof CaptchaLazyRoute
   '/_layout/demo/$id': typeof LayoutDemoIdLazyRoute
   '/_layout/demo/': typeof LayoutDemoIndexLazyRoute
   '/_layout/demo/demo_2/': typeof LayoutDemoDemo2IndexLazyRoute
@@ -186,17 +220,30 @@ export interface FileRouteTypes {
     | ''
     | '/about'
     | '/test'
+    | '/activity'
+    | '/captcha'
     | '/demo/$id'
     | '/demo'
     | '/demo/demo_2'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/about' | '/test' | '/demo/$id' | '/demo' | '/demo/demo_2'
+  to:
+    | '/'
+    | ''
+    | '/about'
+    | '/test'
+    | '/activity'
+    | '/captcha'
+    | '/demo/$id'
+    | '/demo'
+    | '/demo/demo_2'
   id:
     | '__root__'
     | '/'
     | '/_layout'
     | '/about'
     | '/test'
+    | '/activity'
+    | '/captcha'
     | '/_layout/demo/$id'
     | '/_layout/demo/'
     | '/_layout/demo/demo_2/'
@@ -208,6 +255,8 @@ export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   AboutRoute: typeof AboutRoute
   TestRoute: typeof TestRoute
+  ActivityLazyRoute: typeof ActivityLazyRoute
+  CaptchaLazyRoute: typeof CaptchaLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -215,6 +264,8 @@ const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AboutRoute: AboutRoute,
   TestRoute: TestRoute,
+  ActivityLazyRoute: ActivityLazyRoute,
+  CaptchaLazyRoute: CaptchaLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -230,7 +281,9 @@ export const routeTree = rootRoute
         "/",
         "/_layout",
         "/about",
-        "/test"
+        "/test",
+        "/activity",
+        "/captcha"
       ]
     },
     "/": {
@@ -249,6 +302,12 @@ export const routeTree = rootRoute
     },
     "/test": {
       "filePath": "test.tsx"
+    },
+    "/activity": {
+      "filePath": "activity.lazy.tsx"
+    },
+    "/captcha": {
+      "filePath": "captcha.lazy.tsx"
     },
     "/_layout/demo/$id": {
       "filePath": "_layout/demo/$id.lazy.tsx",
