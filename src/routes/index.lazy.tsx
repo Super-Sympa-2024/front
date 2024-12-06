@@ -63,9 +63,11 @@ function RouteComponent() {
           </Link>
         </div>
         <div className='flex justify-center gap-[200px] mt-[100px]'>
-          <button className='rounded-xl p-5 font-bold text-2xl border-[3px] text-[#1E90FF] border-[#1E90FF] hover:bg-white hover:opacity-50 duration-200'>
-            Statistiques
-          </button>
+          <Link to='/stats'>
+            <button className='rounded-xl p-5 font-bold text-2xl border-[3px] text-[#1E90FF] border-[#1E90FF] hover:bg-white hover:opacity-50 duration-200'>
+              Statistiques
+            </button>
+          </Link>
           <button className='rounded-xl p-5 font-bold text-2xl border-[3px] text-[#1E90FF] border-[#1E90FF] hover:bg-white hover:opacity-50 duration-200'>
             Crédits
           </button>
