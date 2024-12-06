@@ -68,9 +68,11 @@ function RouteComponent() {
               Statistiques
             </button>
           </Link>
-          <button className='rounded-xl p-5 font-bold text-2xl border-[3px] text-[#1E90FF] border-[#1E90FF] hover:bg-white hover:opacity-50 duration-200'>
-            Crédits
-          </button>
+          <Link to='/credits'>
+            <button className='rounded-xl p-5 font-bold text-2xl border-[3px] text-[#1E90FF] border-[#1E90FF] hover:bg-white hover:opacity-50 duration-200'>
+              Crédits
+            </button>
+          </Link>
         </div>
       </div>
     </div>
