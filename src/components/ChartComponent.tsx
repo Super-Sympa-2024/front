@@ -1,14 +1,18 @@
-import { Line } from 'react-chartjs-2'; // Import de la version Line de Chart.js
 import {
-  Chart as ChartJS,
   CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
+  Chart as ChartJS,
   Legend,
-} from 'chart.js';
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip
+} from 'chart.js'
+import { Line } from 'react-chartjs-2' // Import de la version Line de Chart.js
+
+import { EventTypeEnum } from '@models/EventTypeEnum'
+
+import { useEventLogger } from '@services/eventLogger'
 
 // Enregistrement des composants nécessaires pour Chart.js
 ChartJS.register(
@@ -19,7 +23,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend
-);
+)
 
 const ChartComponent = () => {
   // Données pour le graphique
@@ -31,46 +35,55 @@ const ChartComponent = () => {
         data: [12, 19, 3, 5, 2, 3, 7], // Valeurs du dataset
         fill: false, // Remplir sous la courbe (false pour un graphique en ligne)
         borderColor: 'rgba(75,192,192,1)', // Couleur de la ligne
-        tension: 0.1, // Courbure de la ligne
-      },
-    ],
-  };
+        tension: 0.1 // Courbure de la ligne
+      }
+    ]
+  }
 
   // Options du graphique
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        position: 'top'
       },
       tooltip: {
         mode: 'index',
-        intersect: false,
-      },
+        intersect: false
+      }
     },
     scales: {
       x: {
         title: {
           display: true,
-          text: 'Mois',
-        },
+          text: 'Temps'
+        }
       },
       y: {
         title: {
           display: true,
-          text: 'Ventes',
-        },
-      },
-    },
-  };
+          text: 'Connexion'
+        }
+      }
+    }
+  }
 
   return (
     <div>
       <h2>Graphique des Ventes Mensuelles</h2>
-      <button>Incrémenter Connexion</button>
+      <button
+        onClick={() => useEventLogger().newEvent(EventTypeEnum.CONNEXION)}
+      >
+        click
+      </button>
+      <button
+        onClick={() => useEventLogger().getEventsByType(EventTypeEnum.CONNEXION)}
+      >
+        GetUnknown
+      </button>
       <Line data={data} options={options} />
     </div>
-  );
-};
+  )
+}
 
-export default ChartComponent;
+export default ChartComponent
