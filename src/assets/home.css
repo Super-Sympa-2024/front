@@ -1,0 +1,34 @@
+.boat {
+  animation: boat-move 3s infinite;
+}
+
+.wave {
+  animation: wave-move 4s infinite;
+}
+
+@keyframes boat-move {
+  0% {
+    rotate: 10deg;
+    transform: translateY(0);
+  }
+  50% {
+    rotate: 20deg;
+    transform: translateY(-25px);
+  }
+  100% {
+    rotate: 10deg;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wave-move {
+  0% {
+    top: 47%;
+  }
+  50% {
+    top: 50%;
+  }
+  100% {
+    top: 47%;
+  }
+}
